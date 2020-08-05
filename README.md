@@ -19,3 +19,5 @@ Simple example that trains a neural network using ML5 javascript library
 4. Click the 't' on the keyboard to start training the model.
 5. Wait for a training debug window to show and wait for it to complete training.
 6. Click on the screen near each letter group and the neural network will draw the letter that it predicts your mouse click is closest too.
+
+# Try it now: https://wesleyarchbell.github.io/ml5-train-neural-network/
