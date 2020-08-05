@@ -5,9 +5,11 @@ let state = 'collection';
 let mouseXPressed;
 let mouseYPressed;
 
-function setup() {
+let keyPressedVal;
 
+function setup() {
     createCanvas(400, 400);       
+    background('#659DBD');    
 
     let options = {
         inputs: ['x', 'y'],
@@ -19,14 +21,18 @@ function setup() {
 }
 
 function keyPressed() {
+    keyPressedVal = key;
     if ('t' === key) {
         state = 'training';
         console.log('Starting training..');
+        textAlign(BOTTOM, LEFT);
+        text('Training model...', 50, 380);
+
         model.normalizeData();
         let options = {
             epochs: 200        
         };
-        model.train(options, whileTraining, finishedTraining);
+        model.train(options, whileTraining, finishedTraining);       
     }
     targetLabel = key.toUpperCase();
 }
@@ -38,9 +44,16 @@ function whileTraining(epoch, loss) {
 function finishedTraining() {
     state = 'prediction';
     console.log('Finished training model');
+    textAlign(BOTTOM, LEFT);
+    text('done.', 110, 380);
 }
 
 function mousePressed() {
+
+    if (!keyPressedVal) {
+        alert("Please select a key before clicking on canvas");
+        return;
+    }
 
     mouseXPressed = mouseX;
     mouseYPressed = mouseY;
