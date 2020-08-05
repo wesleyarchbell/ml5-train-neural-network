@@ -2,14 +2,15 @@ let model;
 let targetLabel;
 let state = 'collection';
 
-let mouseXPressed;
-let mouseYPressed;
-
 let keyPressedVal;
 
 function setup() {
     createCanvas(400, 400);       
-    background('#659DBD');    
+    background('#659DBD');   
+    
+    text('Select a key and click to group letters, repeat and press "T" to train model.', 4, 13);
+    text('When training done, click anywhere for neural network to guess your click.', 4, 27);
+    text('Built with ml5.js & p5.js', 270, 392);
 
     let options = {
         inputs: ['x', 'y'],
@@ -25,8 +26,7 @@ function keyPressed() {
     if ('t' === key) {
         state = 'training';
         console.log('Starting training..');
-        textAlign(BOTTOM, LEFT);
-        text('Training model...', 50, 380);
+        text('Training model...', 50, 389);
 
         model.normalizeData();
         let options = {
@@ -44,8 +44,7 @@ function whileTraining(epoch, loss) {
 function finishedTraining() {
     state = 'prediction';
     console.log('Finished training model');
-    textAlign(BOTTOM, LEFT);
-    text('done.', 110, 380);
+    text('done.', 110, 389);
 }
 
 function mousePressed() {
@@ -54,10 +53,6 @@ function mousePressed() {
         alert("Please select a key before clicking on canvas");
         return;
     }
-
-    mouseXPressed = mouseX;
-    mouseYPressed = mouseY;
-
 
     let inputs = {
         x: mouseX,
@@ -89,7 +84,7 @@ function gotResults(error, results) {
     }   
     stroke(0);
     fill(0, 0, 255, 100);
-    ellipse(mouseXPressed, mouseYPressed, 24);
+    ellipse(mouseX, mouseY, 24);
     fill(0);
     noStroke();
     textAlign(CENTER, CENTER);
