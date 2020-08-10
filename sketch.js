@@ -23,7 +23,8 @@ function setup() {
 function dataLoaded() {
     let data = model.data.data.raw;
     for (d in data) {
-        console.log(d);    
+        console.log(d.xs);    
+        console.log(d.ys);    
     }
 }
 
