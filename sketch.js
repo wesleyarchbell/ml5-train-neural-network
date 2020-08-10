@@ -21,7 +21,10 @@ function setup() {
 }
 
 function dataLoaded() {
-    console.log(model.data);
+    let data = model.data.data.raw;
+    for (d in data) {
+        console.log(d);    
+    }
 }
 
 function keyPressed() {    
