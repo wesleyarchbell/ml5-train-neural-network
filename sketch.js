@@ -75,7 +75,7 @@ function trainModel() {
 }
 
 function whileTraining(epoch, loss) {
-    console.log(epoch);
+    
 }
 
 function finishedTraining() {
