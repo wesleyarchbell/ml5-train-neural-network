@@ -3,6 +3,7 @@ let targetLabel = 'C';
 let state = 'collection';
 
 let keyPressedVal;
+let info;
 
 function setup() {
     createCanvas(400, 430);
@@ -33,6 +34,9 @@ function setup() {
     trainButton.id("train");
     trainButton.position(180, 10);
     trainButton.mousePressed(trainModel);
+
+    info = createDiv('');
+    info.position(15, 415);
 }
 
 function collectionMode() {
@@ -61,7 +65,7 @@ function keyPressed() {
 function trainModel() {
     state = 'training';
     console.log('Starting training..');
-    text('Training model...', 8, 422);
+    info.html('Training...');
 
     model.normalizeData();
     let options = {
@@ -77,7 +81,7 @@ function whileTraining(epoch, loss) {
 function finishedTraining() {
     state = 'prediction';
     console.log('Finished training model');
-    text('done.', 8, 422);
+    info.html('Done.');
 }
 
 function mousePressed(event) {
