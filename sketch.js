@@ -22,27 +22,33 @@ function setup() {
 
 function dataLoaded() {
     let data = model.data.data.raw;
-    for (d in data) {
-        console.log(d.xs);    
-        console.log(d.ys);    
+    for (let i = 0; i < data.length; i++) {
+        let inputs = data[i].xs;
+        let label = data[i].ys.label;
+        drawDataPoint(inputs.x, inputs.y, label);
     }
+    trainModel();
 }
 
 function keyPressed() {    
     if ('t' === key) {
-        state = 'training';
-        console.log('Starting training..');
-        text('Training model...', 50, 389);
-
-        model.normalizeData();
-        let options = {
-            epochs: 200
-        };
-        model.train(options, whileTraining, finishedTraining);
+        trainModel();
     } else if ('s' === key) {
         model.saveData('mouse-notes');
     } 
     targetLabel = key.toUpperCase();
+}
+
+function trainModel() {
+    state = 'training';
+    console.log('Starting training..');
+    text('Training model...', 50, 389);
+
+    model.normalizeData();
+    let options = {
+        epochs: 200
+    };
+    model.train(options, whileTraining, finishedTraining);
 }
 
 function whileTraining(epoch, loss) {
@@ -66,17 +72,21 @@ function mousePressed() {
             label: targetLabel
         }
         model.addData(inputs, target);
-        stroke(0);
-        noFill();
-        ellipse(mouseX, mouseY, 24);
-        fill(0);
-        noStroke();
-        textAlign(CENTER, CENTER);
-        text(targetLabel, mouseX, mouseY);
+        drawDataPoint(mouseX, mouseY, targetLabel);
 
     } else if (state === 'prediction') {
         model.classify(inputs, gotResults);
     }
+}
+
+function drawDataPoint(x, y, label) {
+    stroke(0);
+    noFill();
+    ellipse(x, y, 24);
+    fill(0);
+    noStroke();
+    textAlign(CENTER, CENTER);
+    text(label, x, y);
 }
 
 function gotResults(error, results) {
