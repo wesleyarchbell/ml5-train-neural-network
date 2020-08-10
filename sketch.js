@@ -5,10 +5,10 @@ let state = 'collection';
 let keyPressedVal;
 
 function setup() {
-    createCanvas(400, 400);
+    createCanvas(400, 430);
     background('#659DBD');
 
-    text('Built with ml5.js & p5.js', 270, 392);
+    text('Built with ml5.js & p5.js', 270, 422);
 
     let options = {
         inputs: ['x', 'y'],
@@ -18,6 +18,26 @@ function setup() {
     };
     model = ml5.neuralNetwork(options);
     model.loadData('model-data.json', dataLoaded);
+
+    let collectButton = createButton('Collect Data');
+    collectButton.id("collect");
+    collectButton.position(10, 10);
+    collectButton.mousePressed(collectionMode);
+
+    let saveDataButton = createButton('Save Data');
+    saveDataButton.id("save-data");
+    saveDataButton.position(100, 10);
+    saveDataButton.mousePressed(saveData);
+
+    let trainButton = createButton('Train Model');
+    trainButton.id("train");
+    trainButton.position(180, 10);
+    trainButton.mousePressed(trainModel);
+}
+
+function collectionMode() {
+    state = 'collection';
+    console.log('collection mode');
 }
 
 function dataLoaded() {
@@ -30,19 +50,18 @@ function dataLoaded() {
     trainModel();
 }
 
-function keyPressed() {    
-    if ('t' === key) {
-        trainModel();
-    } else if ('s' === key) {
-        model.saveData('mouse-notes');
-    } 
+function saveData() {
+    model.saveData('mouse-notes');
+}
+
+function keyPressed() {  
     targetLabel = key.toUpperCase();
 }
 
 function trainModel() {
     state = 'training';
     console.log('Starting training..');
-    text('Training model...', 50, 389);
+    text('Training model...', 8, 422);
 
     model.normalizeData();
     let options = {
@@ -58,10 +77,15 @@ function whileTraining(epoch, loss) {
 function finishedTraining() {
     state = 'prediction';
     console.log('Finished training model');
-    text('done.', 110, 389);
+    text('done.', 8, 422);
 }
 
-function mousePressed() {
+function mousePressed(event) {
+    let srcId = event.srcElement.id;
+    if ('collect' === srcId || 'train' === srcId || 'save-data' === srcId) {
+        return false;
+    }
+    
     let inputs = {
         x: mouseX,
         y: mouseY
