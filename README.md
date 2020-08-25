@@ -13,11 +13,6 @@ Simple example that trains a neural network using ML5 javascript library
 
 # Usage guide:
 
-1. Click on a letter on the keyboard. e.g 'a' (do not press 't')
-2. Click and group the letters in a certain area on the screem which will be drawn as circles. e.g. Draw about 10 'A' circles in a group on the screen.
-3. Repeat step 1&2 for a few letters.
-4. Click the 't' on the keyboard to start training the model.
-5. Wait for a training debug window to show and wait for it to complete training.
-6. Click on the screen near each letter group and the neural network will draw the letter that it predicts your mouse click is closest too.
+1. Model is already loaded with data and will train model on loading, once its trained, click anywhere and the trained model will guess your label on where you clicked on screen.
 
 Try it now: https://wesleyarchbell.github.io/ml5-train-neural-network/
