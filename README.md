@@ -13,6 +13,6 @@ Simple example that trains a neural network using ML5 javascript library
 
 # Usage guide:
 
-1. Model is already loaded with data and will train model on loading, once its trained, click anywhere and the trained model will guess your label on where you clicked on screen.
+# Model is already loaded with data and will train model on loading, once its trained, click anywhere and the trained model will guess your label on where you clicked on screen.
 
 Try it now: https://wesleyarchbell.github.io/ml5-train-neural-network/
